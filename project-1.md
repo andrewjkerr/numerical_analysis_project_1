@@ -6,6 +6,10 @@ UFID: 1458-9233
 
 ## 1. Visual Inspection
 
+### Plot
+
+![imgs/part-1.png](imgs/part-1.png)
+
 ### Code
 
 ```matlab
@@ -14,10 +18,6 @@ UFID: 1458-9233
 >> hold on
 >> plot(x, sin(x));
 ```
-
-### Plot
-
-![imgs/part-1.png](imgs/part-1.png)
 
 ### Analysis
 
@@ -307,10 +307,9 @@ end
 ### Order n = 5
 
 ```
->> x = linspace(-5, 5);
+>> x = [-5:0.01:5];
 >> x1 = linspace(-5, 5, 6);
 >> y = 1 ./ (1 + x.^2);
->> y1 = 1 ./ (1 + x1.^2);
 >> interpolation = lagrange_interpolation(x, y, x1);
 >> plot(x, y, x1, interpolation, '-o');
 ```
@@ -320,10 +319,9 @@ end
 ### Order n = 10
 
 ```
->> x = linspace(-5, 5);
+>> x = [-5:0.01:5];
 >> x1 = linspace(-5, 5, 11);
 >> y = 1 ./ (1 + x.^2);
->> y1 = 1 ./ (1 + x1.^2);
 >> interpolation = lagrange_interpolation(x, y, x1);
 >> plot(x, y, x1, interpolation, '-o');
 >> axis([-3, 3, 0, 1])
@@ -339,10 +337,9 @@ _Zoomed_
 ### Order n = 20
 
 ```
->> x = linspace(-5, 5);
+>> x = [-5:0.01:5];
 >> x1 = linspace(-5, 5, 21);
 >> y = 1 ./ (1 + x.^2);
->> y1 = 1 ./ (1 + x1.^2);
 >> interpolation = lagrange_interpolation(x, y, x1);
 >> plot(x, y, x1, interpolation, '-o');
 >> axis([-4, 4, 0, 1])
@@ -356,7 +353,7 @@ _Zoomed_
 
 ### Analysis
 
-As the order n increases, the approximation does get better if you look at the zoomed in version. However, while the approximation near the maximum does get better with an increasing order, the approximation on the outside edges is much much worse.
+As the order n increases, the approximation does get better if you look at the zoomed in version. However, while the approximation near the maximum does get better with an increasing order, the approximation on the outside edges is much much worse. Also, digging into it a little more, it appears that the approximation on the outside edges with higher orders does get better if the number of points in `y` is decreased.
 
 ## 6. Piecewise Linear Interpolation
 
@@ -370,6 +367,8 @@ As the order n increases, the approximation does get better if you look at the z
 >> plot(x, y, x1, interpolation, '-o');
 ```
 
+![](imgs/part-6-1.png)
+
 ### Order n = 10
 
 ```
@@ -379,6 +378,8 @@ As the order n increases, the approximation does get better if you look at the z
 >> interpolation = interp1(x, y, x1);
 >> plot(x, y, x1, interpolation, '-o');
 ```
+
+![](imgs/part-6-2.png)
 
 ### Order n = 20
 
@@ -390,9 +391,11 @@ As the order n increases, the approximation does get better if you look at the z
 >> plot(x, y, x1, interpolation, '-o');
 ```
 
+![](imgs/part-6-3.png)
+
 ### Analysis
 
-Yes, the approximation does get better as order increases.
+Yes, the approximation does get better as order increases! And, unlike the Lagrange interpolation, the approximation does get better everywhere.
 
 ## 7. Raised Cosine Interpolation
 
@@ -409,6 +412,8 @@ Yes, the approximation does get better as order increases.
 >> plot(x, y, x1, interpolation, '-o');
 ```
 
+![](imgs/part-7-1.png)
+
 ### Order n = 10
 
 ```
@@ -421,6 +426,8 @@ Yes, the approximation does get better as order increases.
 >> interpolation = y1 .* rc;
 >> plot(x, y, x1, interpolation, '-o');
 ```
+
+![](imgs/part-7-2.png)
 
 ### Order n = 20
 
@@ -435,7 +442,11 @@ Yes, the approximation does get better as order increases.
 >> plot(x, y, x1, interpolation, '-o');
 ```
 
+![](imgs/part-7-3.png)
+
 ### Analysis
+
+The raised cosine interpolation, like the Lagrange interpolation, does have a better approximation near the maximum as order is increased. However, the edges of the raised cosine interpolation does not provide as good of an approximation as the piecewise linear interpolation does.
 
 ## 8. Least Squares Approximation
 
@@ -449,6 +460,8 @@ Yes, the approximation does get better as order increases.
 >> plot(x, y, x, interpolation);
 ```
 
+![](imgs/part-8-1.png)
+
 ### Order n = 10
 
 ```
@@ -458,6 +471,8 @@ Yes, the approximation does get better as order increases.
 >> interpolation = polyval(coefficients, x);
 >> plot(x, y, x, interpolation);
 ```
+
+![](imgs/part-8-2.png)
 
 ### Order n = 20
 
@@ -472,4 +487,8 @@ degree of the polynomial, or try centering and scaling as described in HELP POLY
 > In polyfit (line 75) 
 ```
 
+![](imgs/part-8-3.png)
+
 ### Analysis
+
+The least squares approximation does get better with more points. It also seems to have the best higher order approximation out of any of the other approximations. However, it appears that the lower order approximations are not very accurate when comparing them to the other approximations.
